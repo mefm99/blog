@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="~/logo.png">
+    <title>@ViewData["title"]</title>
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/dest/style.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/lib/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+    @RenderSection("Styles", false)
+</head>
+<body class="navbar-fixed sidebar-nav fixed-nav">
+    <header class="navbar">
+        <div class="container-fluid">
+            <button class="navbar-toggler mobile-toggler hidden-lg-up" type="button">&#9776;</button>
+            <a class="navbar-brand" asp-action="Index" asp-controller="DashBoard"></a>
+            <ul class="nav navbar-nav hidden-md-down">
+                <li class="nav-item">
+                    <a class="nav-link navbar-toggler layout-toggler">&#9776;</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-left hidden-md-down">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" style="margin-left:20px;" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img src="@HttpContextAccessor.HttpContext.Session.GetString("ImageUser")" class="img-avatar" alt="@HttpContextAccessor.HttpContext.Session.GetString("FullnameUser")">
+                        <span class="hidden-md-down">@HttpContextAccessor.HttpContext.Session.GetString("FullnameUser")</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" asp-action="Account" asp-controller="Dashboard"><i class="fa fa-wrench"></i> إعدادات</a>
+                        <div class="divider"></div>
+                        <a class="dropdown-item" onclick="return Logout()"><i class="fa fa-lock"></i> تسجيل خروج</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Dashboard">
+                        <i class="icon-speedometer"></i>
+                        مقالاتي
+                    </a>
+                </li>
+                <li class="nav-title">
+                    المقالات
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="CreateArticle" asp-controller="Dashboard"><i class="fa fa-pencil-square-o fa-lg"></i>إنشاء مقالة جديدة</a>
+                    <a class="nav-link" asp-action="ArticlesManagement" asp-controller="Dashboard"><i class="fa fa-gear fa-lg"></i> إدارة المقالات</a>
+                </li>
+                <li class="nav-title">
+                    الحساب
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Account" asp-controller="Dashboard"><i class="fa fa-wrench"></i>إعدادت الحساب</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="return Logout()"><i class="fa fa-sign-out"></i>تسجيل الخروج</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <main class="main">
+        @RenderBody()
+    </main>
+    <div id="modal-placeholder">
+    </div>
+    <footer class="footer">
+        <span class="pull-left">
+            Developed by <a href="https://www.facebook.com/mefm99/">MEFM</a>
+        </span>
+    </footer>
+    <script src="~/js/libs/jquery.min.js"></script>
+    <script src="~/js/libs/tether.min.js"></script>
+    <script src="~/js/libs/bootstrap.min.js"></script>
+    <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

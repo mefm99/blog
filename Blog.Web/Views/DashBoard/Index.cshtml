@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["title"] = "الرئيسية";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      مقالاتي
+    </li>
+    <li class="breadcrumb-item active">الرئيسية</li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3">
+                <div class="card card-inverse card-primary">
+                    <div class="card-block p-b-0">
+                        <h4 class="m-b-0">@ViewBag.CounterArticles</h4>
+                        <p>عدد المقالات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

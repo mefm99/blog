@@ -1,0 +1,89 @@
+﻿@model Blog.Core.ViewModels.EditProfileVM
+@{
+    Layout = "_Layout";
+    ViewData["title"] = "إعدادات الحساب";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        مقالاتي
+    </li>
+    <li class="breadcrumb-item active">إعدادات الحساب</li>
+</ol>
+<div class="container-fluid">
+    @if (ViewData["msgSuccess"] != null)
+    {
+        <div class="input-group" style="padding-bottom:10px">
+            <div class="card card-inverse card-success">
+                <div class="card-block">
+                    <div class="m-a-0">@ViewData["msgSuccess"]</div>
+                </div>
+            </div>
+        </div>
+    }    
+    <div class="row">
+        <form class="form-horizontal" method="post" asp-action="Account" asp-controller="DashBoard" asp-antiforgery="true" enctype="multipart/form-data">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-image"></i>
+                        صورة الحساب
+                    </div>
+                    <div class="card-block">
+                        <div class="img-post">
+                            <img class="d-block img-fluid" id="ImgView" src="@HttpContextAccessor.HttpContext.Session.GetString("ImageUser")">
+                        </div>
+                        <div class="controls" style="margin-top:7px">
+                            <input id="ImageInput" asp-for="ImageFile" type="file" hidden onchange="ReadURL(this,'#ImgView')" accept="image/jpg, image/jpeg, image/png" />
+                            <label id="ImageBtn" onclick="document.getElementById('ImageInput').click()" class="btn btn-primary btn-block">
+                                تغير الصورة
+                                <i class="fa fa-upload"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-user"></i>
+                        تفاصيل الحساب
+                    </div>
+                    <div class="card-block">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label class="form-control-label" for="Fullname">الاسم</label>
+                            <div class="controls">
+                                <input class="form-control" asp-for="Fullname">
+                                <span asp-validation-for="Fullname" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="Username">اسم المستخدم</label>
+                            <div class="controls">
+                                <input class="form-control" asp-for="Username">
+                                <span asp-validation-for="Username" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="Password">كلمة المرور</label>
+                            <div class="controls">
+                                <input class="form-control" asp-for="Password">
+                                <span asp-validation-for="Password" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="ConifrmPassword">تأكيد كلمة المرور</label>
+                            <div class="controls">
+                                <input class="form-control" asp-for="ConifrmPassword">
+                                <span asp-validation-for="ConifrmPassword" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

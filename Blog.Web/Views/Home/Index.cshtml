@@ -1,0 +1,151 @@
+﻿@using Blog.Core.Helpers;
+@model PaginatedList<Blog.Core.ViewModels.AllArticlesVM>
+@{
+    Layout = null;
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="~/logo.png">
+    <title>مقالاتي</title>
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/dest/style.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/blog.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body class="navbar-fixed fixed-nav pace-done">
+    <header class="navbar">
+        <div class="container container-nav">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home"></a>
+            <partial name="_UserLogin" />
+        </div>
+    </header>
+    <main class="main">
+        <div class="container-fluid">
+            <div id="main-content" class="blog-page">
+                <div class="container">
+                    <div class="row clearfix">
+                        <div class="col-lg-8 col-md-12 left-box">
+                            @if (Model == null || Model.Count() == 0)
+                            {
+                                <div class="card single_post">
+                                    <div class="body">
+                                        <h3>لا يوجد مقالات متاحة</h3>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+
+                                foreach (var item in Model)
+                                {
+                                    <div class="card single_post">
+                                        <div class="body">
+                                            <div class="img-post">
+                                                <img class="d-block img-fluid" src="data:image/png;base64,@Convert.ToBase64String(item.Image)" alt="@item.Title">
+                                            </div>
+                                            <h3><a asp-action="Article" asp-controller="Home" asp-route-idArticle="@item.Id"> @item.Title </a></h3>
+                                            <p>
+                                                @item.SubTitle
+                                            </p>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="actions">
+                                                <a asp-action="Article" asp-controller="Home" asp-route-idArticle="@item.Id" class="btn btn-outline-secondary">أكمل القراءة</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                                <ul class="pagination center">
+                                    <li class="page-item">
+                                        <a asp-action="Index"
+                                           asp-route-page="@(Model.PageIndex - 1)"
+                                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                           class="page-link btn btn-primary @prevDisabled">
+                                            السابق
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a asp-action="Index"
+                                           asp-route-page="@(Model.PageIndex + 1)"
+                                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                           class="page-link btn btn-primary @nextDisabled">
+                                            التالي
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            }
+                        </div>
+                        <div class="col-lg-4 col-md-12 right-box">
+                            <div class="card">
+                                <form asp-action="Index" method="get">
+                                    <div class="body search">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> بحث</button>
+                                            </span>
+                                            <input type="text" id="searchString" name="searchString" class="form-control" placeholder="ادخل كلمة البحث" value="@ViewData["CurrentFilter"]">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card">
+                                <div class="header">
+                                    <h2>للتواصل</h2>
+                                </div>
+                                <div class="body widget newsletter">
+                                    <a href="" target="_blank" class="btn btn-lg btn-facebook text" style="margin-bottom: 4px">
+                                        <span>فيسبوك</span>
+                                    </a>
+                                    <a href="" target="_blank" class="btn btn-lg btn-twitter text" style="margin-bottom: 4px">
+                                        <span>تويتر</span>
+                                    </a>
+                                    <a href="" target="_blank" class="btn btn-lg btn-linkedin text" style="margin-bottom: 4px">
+                                        <span>لينكد إن</span>
+                                    </a>
+                                    <a href="" target="_blank" class="btn btn-lg btn-github text" style="margin-bottom: 4px">
+                                        <span>جيت هاب</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <span class="pull-left">
+            Developed by <a href="https://www.facebook.com/mefm99/">MEFM</a>
+        </span>
+    </footer>
+    <script src="~/js/libs/jquery.min.js"></script>
+    <script src="~/js/libs/bootstrap.min.js"></script>
+    <script src="~/js/libs/tether.min.js"></script>
+    <script>
+        function verticalAlignMiddle() {
+            var bodyHeight = $(window).height();
+            var formHeight = $('.vamiddle').height();
+            var marginTop = (bodyHeight / 2) - (formHeight / 2);
+            if (marginTop > 0) {
+                $('.vamiddle').css('margin-top', marginTop);
+            }
+        }
+        $(document).ready(function () {
+            verticalAlignMiddle();
+        });
+        $(window).bind('resize', verticalAlignMiddle);
+    </script>
+</body>
+</html>

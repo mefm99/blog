@@ -1,0 +1,160 @@
+﻿@model Blog.Core.ViewModels.EditArticleVM
+@{
+    ViewData["title"] = "تعديل مقالة";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        مقالاتي
+    </li>
+    <li class="breadcrumb-item active">تعديل مقالة</li>
+</ol>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-edit"></i>
+                    تعديل مقالة
+                </div>
+                @if (ViewBag.MessageSuccess != null)
+                {
+                    <div class="input-group" style="padding-bottom:10px;padding-top:10px">
+                        <div class="card card-inverse card-info">
+                            <div class="card-block">
+                                <div class="m-a-0">@ViewBag.MessageSuccess</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (ViewBag.MessageError != null)
+                {
+                    <div class="input-group" style="padding-bottom:10px;padding-top:10px">
+                        <div class="card card-inverse card-danger">
+                            <div class="card-block">
+                                <div class="m-a-0">@ViewBag.MessageError</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="card-block">
+                    <form class="form-horizontal" method="post" asp-action="EditArticle" asp-controller="DashBoard" asp-antiforgery="true" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <div class="body">
+                                @if (Model.Image != null)
+                                {
+                                    <div class="img-post">
+                                        <img class="d-block img-fluid" src="data:image/png;base64,@Convert.ToBase64String(Model.Image)">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="Title">عنوان المقالة</label>
+                            <div class="controls">
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="SubTitle">عنوان المقالة التفصيلي</label>
+                            <div class="controls">
+                                <input asp-for="SubTitle" class="form-control" />
+                                <span asp-validation-for="SubTitle" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="Details">محتوى المقالة</label>
+                            <div class="controls">
+                                <textarea asp-for="Details" class="form-control ckeditor"></textarea>
+                                <span asp-validation-for="Details" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="ImageFile">صورة المقال</label>
+                            <div class="controls">
+                                <input type="file" asp-for="ImageFile" class="form-control">
+                                <span asp-validation-for="ImageFile" class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                تفاصيل المقالة 1
+                            </div>
+                            <div class="card-block">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="TitleInfo1">العنوان</label>
+                                        <div class="controls">
+                                            <input asp-for="TitleInfo1" class="form-control" />
+                                            <span asp-validation-for="TitleInfo1" class="help-block text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="Property1">الخاصية</label>
+                                        <div class="controls">
+                                            <input asp-for="Property1" class="form-control" />
+                                            <span asp-validation-for="Property1" class="help-block text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="Value1">القيمة</label>
+                                        <div class="controls">
+                                            <input asp-for="Value1" class="form-control" />
+                                            <span asp-validation-for="Value1" class="help-block text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                تفاصيل المقالة 2
+                            </div>
+                            <div class="card-block">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="TitleInfo2">العنوان</label>
+                                        <div class="controls">
+                                            <input asp-for="TitleInfo2" class="form-control" />
+                                            <span asp-validation-for="TitleInfo2" class="help-block text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="Property2">الخاصية</label>
+                                        <div class="controls">
+                                            <input asp-for="Property2" class="form-control" />
+                                            <span asp-validation-for="Property1" class="help-block text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="Value2">القيمة</label>
+                                        <div class="controls">
+                                            <input asp-for="Value2" class="form-control" />
+                                            <span asp-validation-for="Value2" class="help-block text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">تعديل المقالة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/lib/ckeditor5/ckeditor.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Details'), {
+                toolbar: ['heading', '|', 'bold', 'italic',],
+                language: 'ar'
+            });
+    </script>
+}

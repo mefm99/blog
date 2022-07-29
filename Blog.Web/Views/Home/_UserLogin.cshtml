@@ -1,0 +1,17 @@
+﻿@if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("IdUser")))
+{
+    <div class="form-inline nav navbar-nav pull-xs-right">
+        <a class="btn btn-outline-primary" asp-action="Login" asp-controller="Home"> تسجيل الدخول  </a>
+    </div>
+}
+else
+{
+    <ul class="nav navbar-nav pull-left">
+        <li class="nav-item">
+            <a class="nav-link" style="margin-left:20px;" role="button">
+                <img src="@HttpContextAccessor.HttpContext.Session.GetString("ImageUser")" class="img-avatar" alt="@HttpContextAccessor.HttpContext.Session.GetString("FullnameUser")">
+                <span class="hidden-md-down">@HttpContextAccessor.HttpContext.Session.GetString("FullnameUser")</span>
+            </a>
+        </li>
+    </ul>
+}

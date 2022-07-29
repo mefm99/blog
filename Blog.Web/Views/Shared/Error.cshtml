@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="~/logo.png">
+    <title>مقالاتي</title>
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/dest/style.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 m-x-auto pull-xs-none vamiddle">
+                <div class="clearfix">
+                    <h1 class="p-t-1">خطأ @ViewBag.Statuscode</h1>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary"><i class="fa fa-star"></i>&nbsp; الرجوع للصفحة الرئيسية</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/libs/jquery.min.js"></script>
+    <script src="~/js/libs/bootstrap.min.js"></script>
+    <script src="~/js/libs/tether.min.js"></script>
+    <script>
+        function verticalAlignMiddle() {
+            var bodyHeight = $(window).height();
+            var formHeight = $('.vamiddle').height();
+            var marginTop = (bodyHeight / 2) - (formHeight / 2);
+            if (marginTop > 0) {
+                $('.vamiddle').css('margin-top', marginTop);
+            }
+        }
+        $(document).ready(function () {
+            verticalAlignMiddle();
+        });
+        $(window).bind('resize', verticalAlignMiddle);
+    </script>
+</body>
+</html>

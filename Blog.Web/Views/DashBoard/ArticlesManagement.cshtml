@@ -1,0 +1,101 @@
+﻿@using Blog.Core.Helpers;
+@model PaginatedList<Blog.Core.ViewModels.ArticleVM>
+@{
+    ViewData["title"] = "إدارة المقالات";
+    var i = 1;
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+    مقالاتي
+    </li>
+    <li class="breadcrumb-item active">إدارة المقالات</li>
+</ol>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> المقالات التى تم نشرها من خلال المستخدم
+                </div>
+                <div class="card-block">
+                    <table class="table table-bordered table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th>المسلسل</th>
+                                <th>العنوان</th>
+                                <th>عدد القراءات</th>
+                                <th>حالة النشر</th>
+                                <th>الاجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model == null || Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="5">لا يوجد مقالات</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@(i++)</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.Counter</td>
+                                        @if (item.IsPublish == true)
+                                        {
+                                            <td>
+                                                <span class="tag tag-success">تم النشر</span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <span class="tag tag-danger">تم الإخفاء</span>
+                                            </td>
+                                        }
+                                        <td>
+                                            <button type="button" onclick="return EditArticle(@item.Id)" class="btn btn-outline-primary btn-sm">تعديل</button>
+                                            <button type="button" onclick="return DeleteArticle(@item.Id)" class="btn btn-outline-danger btn-sm">حذف</button>
+                                            @if (item.IsPublish == true)
+                                            {
+                                                <button type="button" onclick="return HideArticle(@item.Id)" class="btn btn-outline-warning btn-sm">إخفاء</button>
+
+                                            }
+                                            else
+                                            {
+                                                <button type="button" onclick="return ShowArticle(@item.Id)" class="btn btn-outline-success btn-sm">نشر</button>
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pagination center">
+                            <li class="page-item">
+                                <a asp-action="ArticlesManagement" asp-controller="DashBoard"
+                                   asp-route-page="@(Model.PageIndex - 1)"
+                                   class="page-link btn btn-primary @prevDisabled">
+                                    السابق
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a asp-action="ArticlesManagement" asp-controller="DashBoard"
+                                   asp-route-page="@(Model.PageIndex + 1)"
+                                   class="page-link btn btn-primary @nextDisabled">
+                                    التالي
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
