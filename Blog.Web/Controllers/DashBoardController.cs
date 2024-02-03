@@ -3,7 +3,6 @@ using Blog.Core.Helpers;
 using Blog.Core.Interfaces;
 using Blog.Core.Models;
 using Blog.Core.ViewModels;
-using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers
@@ -28,18 +27,20 @@ namespace Blog.Web.Controllers
             var wwwroot = _env.WebRootPath;
             var extension = Path.GetExtension(fileImage.FileName);
             var fileName = "img_" + DateTime.Now.ToString("yymmssfff") + extension;
+            var folderPath = Path.Combine(wwwroot, "Images");
             var filePath = Path.Combine(wwwroot, "Images", fileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 fileImage.CopyTo(fileStream);
             }
-            var imageOptimizer = new FileInfo(filePath);
-            var optimizer = new ImageOptimizer();
-            optimizer.LosslessCompress(imageOptimizer);
-            imageOptimizer.Refresh();
-            var img = System.IO.File.OpenRead(imageOptimizer.FullName);
+
             var dataImage = new MemoryStream();
-            img.CopyTo(dataImage);
+            fileImage.CopyTo(dataImage);
             return dataImage.ToArray();
         }
         public IActionResult Index()

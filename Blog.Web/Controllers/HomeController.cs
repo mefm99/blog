@@ -1,9 +1,7 @@
 ﻿using Blog.Core.Helpers;
 using Blog.Core.Interfaces;
 using Blog.Core.ViewModels;
-using Blog.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Blog.Web.Controllers
 {
@@ -38,6 +36,8 @@ namespace Blog.Web.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("IdUser")))
                 return RedirectToAction("Index", "DashBoard");
+
+
             return View();
         }
         [HttpPost]
