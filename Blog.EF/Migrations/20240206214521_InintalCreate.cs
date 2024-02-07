@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Blog.EF.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InintalCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
